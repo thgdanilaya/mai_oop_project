@@ -3,8 +3,30 @@ from aiogram import Bot, types
 from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
 
+import os
+import pika
+import aio_pika
+
 bot = Bot(token=config.TOKEN)
 dispatch = Dispatcher(bot)
+
+amqp_url = os.environ["AMQP_URL"]
+url_params = pika.URLParameters(amqp_url)
+
+
+async def consume():
+    connection2 = await aio_pika.connect_robust(amqp_url)
+    queue_name = "second"  # править название очереди
+
+    async with connection2:
+        channel2 = await connection2.channel()
+
+        queue = await channel2.declare_queue(queue_name)
+        async with queue.iterator() as it:
+            async for message in it:
+                async with message.process():  #TODO дописать отправку аудио
+                    pass
+
 
 
 @dispatch.message_handler(commands=['start'])
