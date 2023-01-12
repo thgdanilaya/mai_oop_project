@@ -15,21 +15,6 @@ amqp_url = os.environ["AMQP_URL"]
 url_params = pika.URLParameters(amqp_url)
 
 
-async def consume():
-    connection2 = None
-    while connection2 is None:
-        try:
-            connection2 = await aio_pika.connect_robust(amqp_url)
-        except:
-            await asyncio.sleep(50)
-
-    queue_name = "second"
-    async with connection2:
-        channel2 = await connection2.channel()
-        await channel2.set_qos(prefetch_count=10)
-        queue = await channel2.declare_queue(queue_name)
-
-
 
 @dispatch.message_handler(commands=['start'])
 async def welcome(message: types.Message):
