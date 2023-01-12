@@ -1,34 +1,3 @@
-
-Skip to content
-Pull requests
-Issues
-Codespaces
-Marketplace
-Explore
-@ssForz
-thgdanilaya /
-mai_oop_project
-Public
-
-Fork your own copy of thgdanilaya/mai_oop_project
-
-Code
-Issues 1
-Pull requests
-Actions
-Projects
-Wiki
-Security
-
-    Insights
-
-mai_oop_project/telegram_bot/bot.py /
-@thgdanilaya
-thgdanilaya пошел процесс
-Latest commit 90fa2df Jan 12, 2023
-History
-1 contributor
-74 lines (56 sloc) 2.61 KB
 import config
 from aiogram import Bot, types
 from aiogram.dispatcher import Dispatcher
@@ -103,20 +72,3 @@ async def send_beat(message):
 
 if __name__ == "__main__":
     executor.start_polling(dispatch)
-Footer
-© 2023 GitHub, Inc.
-Footer navigation
-
-    Terms
-    Privacy
-    Security
-    Status
-    Docs
-    Contact GitHub
-    Pricing
-    API
-    Training
-    Blog
-    About
-
-mai_oop_project/bot.py at master · thgdanilaya/mai_oop_project
