@@ -1,0 +1,35 @@
+version: "3.2"
+
+services:
+
+  rabbit_mq:
+
+    image: rabbitmq:3.8-rc-management
+    container_name: rabbit_mq
+    ports:
+        - '5672:5672'
+        - '15672:15672'
+    volumes:
+      - rabbit_mqdata:/usr/share/rabbitmq/data
+  app:
+    build: musik
+    depends_on:
+        - rabbit_mq
+    environment:
+        AMQP_URL_FROM_BOT: 'amqp://frombot'
+        AMQP_URL_TO_BOT: 'amqp://tobot'
+    volumes:
+      - ./app:/usr/src/app
+
+  bot:
+    build: telegram_bot
+    depends_on:
+        - rabbit_mq
+    environment:
+        AMQP_URL_FROM_BOT: 'amqp://frombot'
+        AMQP_URL_TO_BOT: 'amqp://tobot'
+    volumes:
+      - ./bot:/usr/src/bot
+volumes:
+    rabbit_mqdata:
+      driver: local
