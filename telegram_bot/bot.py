@@ -8,12 +8,14 @@ import pika
 import aio_pika
 import asyncio
 
+import bot_consumer
+import bot_producer
+
 bot = Bot(token=config.TOKEN)
 dispatch = Dispatcher(bot)
 
 amqp_url = os.environ["AMQP_URL"]
 url_params = pika.URLParameters(amqp_url)
-
 
 
 @dispatch.message_handler(commands=['start'])
@@ -35,6 +37,9 @@ async def menu(message):
 @dispatch.message_handler(commands=['generate'])
 async def generator_menu(message):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+
+    await bot_producer.publish(message.chat.id)
+
     await bot.send_message(message.chat.id, "generating beat, it can take some time, pls WAIT",
                            reply_markup=markup)
     audio = open('../test_audio/hip-hop.mp3', 'rb')
