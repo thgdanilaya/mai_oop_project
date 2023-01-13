@@ -1,10 +1,10 @@
-version: "3.2"
+version: "2.1"
 
 services:
 
   rabbit_mq:
 
-    image: rabbitmq:3.8-rc-management
+    image: rabbitmq:3-management-alpine
     container_name: rabbit_mq
     ports:
         - '5672:5672'
@@ -15,9 +15,11 @@ services:
     build: musik
     depends_on:
         - rabbit_mq
+    links: 
+        - rabbit_mq
     environment:
-        AMQP_URL_FROM_BOT: 'amqp://frombot'
-        AMQP_URL_TO_BOT: 'amqp://tobot'
+        AMQP_URL_FROM_BOT: 'amqp://rabbit_mq?connection_attempts=10&retry_delay=10'
+        AMQP_URL_TO_BOT: 'amqp://rabbit_mq?connection_attempts=10&retry_delay=10'
     volumes:
       - ./app:/usr/src/app
 
@@ -25,9 +27,11 @@ services:
     build: telegram_bot
     depends_on:
         - rabbit_mq
+    links: 
+        - rabbit_mq
     environment:
-        AMQP_URL_FROM_BOT: 'amqp://frombot'
-        AMQP_URL_TO_BOT: 'amqp://tobot'
+        AMQP_URL_FROM_BOT: 'amqp://rabbit_mq?connection_attempts=10&retry_delay=10'
+        AMQP_URL_TO_BOT: 'amqp://rabbit_mq?connection_attempts=10&retry_delay=10'
     volumes:
       - ./bot:/usr/src/bot
 volumes:
