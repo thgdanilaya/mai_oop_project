@@ -1,3 +1,5 @@
+import time
+
 import config
 from aiogram import Bot, types
 from aiogram.dispatcher import Dispatcher
@@ -11,11 +13,14 @@ import asyncio
 import bot_consumer
 import bot_producer
 
+import googlecongif
+from google.oauth2 import service_account
+from googleapiclient.http import MediaIoBaseDownload, MediaFileUpload
+from googleapiclient.discovery import build
+import google_server
+
 bot = Bot(token=config.TOKEN)
 dispatch = Dispatcher(bot)
-
-amqp_url = os.environ["AMQP_URL"]
-url_params = pika.URLParameters(amqp_url)
 
 
 @dispatch.message_handler(commands=['start'])
@@ -38,12 +43,15 @@ async def menu(message):
 async def generator_menu(message):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
 
-    await bot_producer.publish(message.chat.id)
-
     await bot.send_message(message.chat.id, "generating beat, it can take some time, pls WAIT",
                            reply_markup=markup)
-    audio = open('../test_audio/hip-hop.mp3', 'rb')
+    await bot_producer.publish(message.chat.id)
+
+    await google_server.search_file(str(message.chat.id))
+
+    audio = open('../test_audio/' + str(message.chat.id) + ".wav", 'rb')
     await bot.send_audio(message.chat.id, audio)
+    os.remove('../test_audio/' + str(message.chat.id) + ".wav")
 
 
 @dispatch.message_handler(commands=['ficha'])

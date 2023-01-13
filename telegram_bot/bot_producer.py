@@ -11,5 +11,5 @@ channel.queue_declare(queue='frombot')
 
 
 def publish(chat_id):
-    channel.basic_publish(exchange='', routing_key='frombot', body='chat_id')
+    channel.basic_publish(exchange='', routing_key='frombot', body=chat_id)
     connection.close()
