@@ -19,7 +19,6 @@ services:
         - rabbit_mq
     environment:
         AMQP_URL_FROM_BOT: 'amqp://rabbit_mq?connection_attempts=10&retry_delay=10'
-        AMQP_URL_TO_BOT: 'amqp://rabbit_mq?connection_attempts=10&retry_delay=10'
     volumes:
       - ./app:/usr/src/app
 
@@ -31,7 +30,6 @@ services:
         - rabbit_mq
     environment:
         AMQP_URL_FROM_BOT: 'amqp://rabbit_mq?connection_attempts=10&retry_delay=10'
-        AMQP_URL_TO_BOT: 'amqp://rabbit_mq?connection_attempts=10&retry_delay=10'
     volumes:
       - ./bot:/usr/src/bot
 volumes:

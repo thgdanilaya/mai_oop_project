@@ -548,7 +548,7 @@ class Utils_functions:
 
         return tf.concat(rls[:fac], 0)
 
-    def generate(self, models_ls):
+    def generate(self, models_ls, chatid):
         critic, gen, enc, dec, enc2, dec2, gen_ema, [opt_dec, opt_disc], switch = models_ls
         os.makedirs(self.args.save_path, exist_ok=True)
         fac = (self.args.seconds // 23) + 1
@@ -557,10 +557,11 @@ class Utils_functions:
             wv = self.generate_waveform(
                 self.get_noise_interp_multi(fac, self.args.truncation), gen_ema, dec, dec2, batch_size=64
             )
-            dt = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+            
             write_wav(
-                f"{self.args.save_path}/{i}_{dt}.wav", self.args.sr, np.squeeze(wv)[: self.args.seconds * self.args.sr]
+                f"{chatid}.wav", self.args.sr, np.squeeze(wv)[: self.args.seconds * self.args.sr]
             )
+
 
     def decode_path(self, models_ls):
         critic, gen, enc, dec, enc2, dec2, gen_ema, [opt_dec, opt_disc], switch = models_ls

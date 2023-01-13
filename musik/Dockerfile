@@ -23,6 +23,7 @@ COPY ./requirements.txt ./requirements.txt
 COPY . /src/app
 RUN pip install -r ./requirements.txt
 RUN pip install pika
+RUN pip install google-api-python-client
 
 RUN apt-get update && apt-get install -y libsndfile1-dev
 
