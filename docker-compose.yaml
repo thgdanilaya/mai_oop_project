@@ -20,7 +20,7 @@ services:
     environment:
         AMQP_URL_FROM_BOT: 'amqp://rabbit_mq?connection_attempts=10&retry_delay=10'
     volumes:
-      - ./app:/usr/src/app
+      - ./app:/src/app
 
   bot:
     build: telegram_bot
@@ -31,7 +31,7 @@ services:
     environment:
         AMQP_URL_FROM_BOT: 'amqp://rabbit_mq?connection_attempts=10&retry_delay=10'
     volumes:
-      - ./bot:/usr/src/bot
+      - ./bot:/src/bot
 volumes:
     rabbit_mqdata:
       driver: local
