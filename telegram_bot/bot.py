@@ -45,11 +45,17 @@ async def generator_menu(message):
                            reply_markup=markup)
     await bot_producer.publish(str(message.chat.id))
 
-    await google_server.search_file(str(message.chat.id))
-
-    audio = open('/src/bot/test_audio/snd' + str(message.chat.id).decode("utf-8") + ".wav", 'rb')
+    await google_server.search_file("snd"+str(message.chat.id))
+    # flag = 1
+    # while(flag):
+    #     try:
+    #         audio = open('/src/bot/test_audio/snd' + str(message.chat.id) + ".wav", 'rb')
+    #         flag = 0
+    #     except:
+    #         continue
+    audio = open('/src/bot/test_audio/snd' + str(message.chat.id) + ".wav", 'rb')
     await bot.send_audio(message.chat.id, audio)
-    os.remove("/src/bot/test_audio/snd" + str(message.chat.id).decode("utf-8") + ".wav")
+    os.remove("/src/bot/test_audio/snd" + str(message.chat.id) + ".wav")
 
 
 # @dispatch.message_handler(commands=['ficha'])

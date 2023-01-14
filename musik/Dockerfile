@@ -27,4 +27,4 @@ COPY . /src/app
 
 RUN apt-get update && apt-get install -y libsndfile1-dev
 
-ENTRYPOINT ["python", "./src/app/app_consumer.py","--num_samples", "1", "--seconds", "120","--save_path", "/src/app/generations"]
+ENTRYPOINT ["python", "/src/app/app_consumer.py","--num_samples", "1", "--seconds", "120","--save_path", "/src/app/generations"]

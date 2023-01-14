@@ -4,7 +4,7 @@ import asyncio
 
 
 
-def publish(chat_id):
+async def publish(chat_id):
     amqp_url = os.environ['AMQP_URL_FROM_BOT']
     url_params = pika.URLParameters(amqp_url)
     connection = pika.BlockingConnection(url_params)
