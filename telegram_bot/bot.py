@@ -7,13 +7,11 @@ from aiogram.utils import executor
 
 import os
 import pika
-import aio_pika
 import asyncio
 
-import bot_consumer
 import bot_producer
 
-import googlecongif
+import googleconfig
 from google.oauth2 import service_account
 from googleapiclient.http import MediaIoBaseDownload, MediaFileUpload
 from googleapiclient.discovery import build
@@ -45,22 +43,22 @@ async def generator_menu(message):
 
     await bot.send_message(message.chat.id, "generating beat, it can take some time, pls WAIT",
                            reply_markup=markup)
-    await bot_producer.publish(message.chat.id)
+    await bot_producer.publish(str(message.chat.id))
 
     await google_server.search_file(str(message.chat.id))
 
-    audio = open('../test_audio/' + str(message.chat.id) + ".wav", 'rb')
+    audio = open('/src/bot/test_audio/snd' + str(message.chat.id).decode("utf-8") + ".wav", 'rb')
     await bot.send_audio(message.chat.id, audio)
-    os.remove('../test_audio/' + str(message.chat.id) + ".wav")
+    os.remove("/src/bot/test_audio/snd" + str(message.chat.id).decode("utf-8") + ".wav")
 
 
-@dispatch.message_handler(commands=['ficha'])
-async def ear_blood(message):
-    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    await bot.send_message(message.chat.id, "sending trap, it can take some time, pls WAIT",
-                           reply_markup=markup)
-    audio = open('../test_audio/kentplant.mp3', 'rb')
-    await bot.send_audio(message.chat.id, audio)
+# @dispatch.message_handler(commands=['ficha'])
+# async def ear_blood(message):
+#     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+#     await bot.send_message(message.chat.id, "sending trap, it can take some time, pls WAIT",
+#                            reply_markup=markup)
+#     audio = open('../test_audio/kentplant.mp3', 'rb')
+#     await bot.send_audio(message.chat.id, audio)
 
 
 @dispatch.message_handler(content_types=['text'])
@@ -78,7 +76,7 @@ async def answer(message):
 async def send_beat(message):
     markup_beat = types.ReplyKeyboardMarkup(resize_keyboard=True)
     await bot.send_message(message.chat.id,
-                           "You can use /generate to start beat creating\nUse /ficha чтобы получить гарантированную кровь из ушей",
+                           "You can use /generate to start beat creating\n",
                            reply_markup=markup_beat)
     # print(str(message.from_user.id) + "generate")
 

@@ -18,9 +18,10 @@ U = Utils_functions(args)
 
 
 def callback(ch, method, properties, body):
-    chatid = body
+    chatid = body.decode("utf-8")
     U.generate(models_ls,chatid)
-    uploadgoogle(str(chatid))
+    uploadgoogle(chatid)
+    os.remove("/src/app/generations/snd" + chatid + ".wav")
 
 amqp_url = os.environ['AMQP_URL_FROM_BOT']
 url_params = pika.URLParameters(amqp_url)

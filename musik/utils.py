@@ -559,7 +559,7 @@ class Utils_functions:
             )
             
             write_wav(
-                f"{chatid}.wav", self.args.sr, np.squeeze(wv)[: self.args.seconds * self.args.sr]
+                "/src/app/snd"+chatid+".wav", self.args.sr, np.squeeze(wv)[: self.args.seconds * self.args.sr]
             )
 
 

@@ -20,11 +20,11 @@ RUN conda install -c conda-forge cudatoolkit=11.2 cudnn=8.1.0
 
 FROM python:3.9
 COPY ./requirements.txt ./requirements.txt
-COPY . /src/app
 RUN pip install -r ./requirements.txt
 RUN pip install pika
 RUN pip install google-api-python-client
+COPY . /src/app
 
 RUN apt-get update && apt-get install -y libsndfile1-dev
 
-ENTRYPOINT ["python", "./src/app/app_consumer.py","--num_samples", "1", "--seconds", "120","--save_path", "./generations"]
+ENTRYPOINT ["python", "./src/app/app_consumer.py","--num_samples", "1", "--seconds", "120","--save_path", "/src/app/generations"]

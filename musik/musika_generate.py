@@ -1,6 +1,4 @@
-import os, sys, pika
-from app_consumer import receiver
-from app_producer import sender
+import os, sys
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
 from parse.parse_generate import parse_args
