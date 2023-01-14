@@ -1,5 +1,5 @@
 # Babymama neural
-based on musika: git@github.com:marcoppasini/musika.git 
+based on musika: [git@github.com:marcoppasini/musika.git ](https://github.com/marcoppasini/musika.git)
 
 contributors: Казанцев Данила Игоревич, Друхольский Александр Константинович
 
