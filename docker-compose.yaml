@@ -10,7 +10,7 @@ services:
         - '5672:5672'
         - '15672:15672'
     volumes:
-      - rabbit_mqdata:/usr/share/rabbitmq/data
+      - rabbit_mqdata:/share/rabbitmq/data
   app:
     build: musik
     depends_on:
