@@ -9,6 +9,9 @@ contributors: Казанцев Данила Игоревич, Друхольск
 * bot (./telegram_bot)
 * app (./musik)
 * RabbitMQ
+
+![image](https://github.com/thgdanilaya/mai_oop_project/assets/90084795/4242b0b7-d069-4f78-92f1-c83b53f7f097)
+
 ## Запуск
 ```
 docker-compose build
